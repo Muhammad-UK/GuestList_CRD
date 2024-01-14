@@ -1,6 +1,6 @@
-import { TGuestsDataArray } from "./types";
+import { TGuestsProps } from "./types";
 
-const Guests = ({ guests }: TGuestsDataArray) => {
+const Guests = ({ guests, destroyGuest }: TGuestsProps) => {
   return (
     <div className="Guests">
       {guests.map((guest) => {
@@ -9,6 +9,7 @@ const Guests = ({ guests }: TGuestsDataArray) => {
             <h2>{guest.name}</h2>
             <p>{guest.phone}</p>
             <p>{guest.email}</p>
+            <button onClick={() => destroyGuest(guest)}>Delete</button>
           </section>
         );
       })}

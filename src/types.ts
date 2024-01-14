@@ -4,8 +4,9 @@ export type TGuestsData = {
     email: string,
     phone: string
 }
-export type TGuestsDataArray = {
+export type TGuestsProps = {
     guests: TGuestsData[];
+    destroyGuest: (guest: TGuestsData)=> void;
 }
 export type TCreateGuestProp = {
     createGuest: (guest: TGuestsData) => void;

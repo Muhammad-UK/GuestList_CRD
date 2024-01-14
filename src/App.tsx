@@ -34,11 +34,22 @@ const App = () => {
     setGuests([...guests, json.data]);
   };
 
+  const destroyGuest = async (guest: TGuestsData) => {
+    await fetch(Api + COHORT + "/guests" + `/${guest.id}`, {
+      method: "DELETE",
+    });
+    setGuests(
+      guests.filter((_guest) => {
+        return _guest.id !== guest.id;
+      })
+    );
+  };
+
   return (
     <div>
       <h1>Guests: {guests.length}</h1>
       <CreateGuest createGuest={createGuest} />
-      <Guests guests={guests} />
+      <Guests guests={guests} destroyGuest={destroyGuest} />
     </div>
   );
 };
