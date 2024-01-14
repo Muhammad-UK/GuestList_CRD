@@ -7,3 +7,6 @@ export type TGuestsData = {
 export type TGuestsDataArray = {
     guests: TGuestsData[];
 }
+export type TCreateGuestProp = {
+    createGuest: (guest: TGuestsData) => void;
+}

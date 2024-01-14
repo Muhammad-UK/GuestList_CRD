@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { TGuestsData } from "./types";
 import Guests from "./Guests";
+import CreateGuest from "./CreateGuest";
 import "./App.css";
 
 const App = () => {
@@ -21,9 +22,22 @@ const App = () => {
     fetchGuestsData();
   }, []);
 
+  const createGuest = async (guest: TGuestsData) => {
+    const response = await fetch(Api + COHORT + "/guests", {
+      method: "POST",
+      body: JSON.stringify(guest),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const json = await response.json();
+    setGuests([...guests, json.data]);
+  };
+
   return (
     <div>
       <h1>Guests: {guests.length}</h1>
+      <CreateGuest createGuest={createGuest} />
       <Guests guests={guests} />
     </div>
   );
