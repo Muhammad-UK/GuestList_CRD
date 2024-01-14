@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TGuestsData } from "./types";
+import { TGuestsData, TGuest } from "./types";
 import Guests from "./Guests";
 import CreateGuest from "./CreateGuest";
 import "./App.css";
@@ -22,25 +22,29 @@ const App = () => {
     fetchGuestsData();
   }, []);
 
-  const createGuest = async (guest: TGuestsData) => {
-    const response = await fetch(Api + COHORT + "/guests", {
-      method: "POST",
-      body: JSON.stringify(guest),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const json = await response.json();
-    setGuests([...guests, json.data]);
+  const createGuest = async (guest: TGuest) => {
+    try {
+      const response = await fetch(Api + COHORT + "/guests", {
+        method: "POST",
+        body: JSON.stringify(guest),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const json = await response.json();
+      setGuests([...guests, json.data]);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const destroyGuest = async (guest: TGuestsData) => {
-    await fetch(Api + COHORT + "/guests" + `/${guest.id}`, {
+  const destroyGuest = async (singleGuest: TGuestsData) => {
+    await fetch(Api + COHORT + "/guests" + `/${singleGuest.id}`, {
       method: "DELETE",
     });
     setGuests(
       guests.filter((_guest) => {
-        return _guest.id !== guest.id;
+        return _guest.id !== singleGuest.id;
       })
     );
   };

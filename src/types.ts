@@ -9,5 +9,10 @@ export type TGuestsProps = {
     destroyGuest: (guest: TGuestsData)=> void;
 }
 export type TCreateGuestProp = {
-    createGuest: (guest: TGuestsData) => void;
+    createGuest: (guest: TGuest) => void;
+}
+export type TGuest = {
+    name: string,
+    email: string,
+    phone: string
 }
